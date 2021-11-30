@@ -2,7 +2,6 @@
 
 PATH_BASE="$PWD"
 DIRECTORY_BASE=$(basename "$PATH_BASE")
-DIRECTORY_PARENT=$(dirname "$PATH_BASE")
 
 TEXMF=$(kpsewhich -var-value=TEXMFHOME)
 PATH_TEXMF="${TEXMF}/tex/latex"
