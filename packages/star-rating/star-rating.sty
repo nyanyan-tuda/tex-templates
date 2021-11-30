@@ -1,0 +1,149 @@
+%! Package = star-rating
+%! Author = nyanyan
+%! Date = 2021/11/30
+
+
+%- Requirements -%
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{expl3}
+
+
+%- Identification -%
+
+%-- Version --%
+\DeclareDocumentCommand{\fileversion}{}{1.0.0}
+\DeclareDocumentCommand{\filedate}{}{2021/11/3ß}
+
+%-- Package information --%
+\ProvidesExplPackage{star-rating}
+{\filedate}
+{\fileversion}
+{Allows displaying rating with stars}
+
+
+%- Packages -%
+
+%-- Graphics --%
+\RequirePackage{tikz}
+
+%-- Key-Value Options --%
+\RequirePackage{l3keys2e}
+
+
+%- Options -%
+
+\keys_define:nn {nyanyan/rating}
+  {
+  max-points .int_set:N=\g_nyanyan_rating_default_max_points_int,
+  max-points .default:n=5,
+  max-points .initial:n=5,
+  color-achieved .tl_set:N=\g_nyanyan_rating_default_color_achieved_tl,
+  color-achieved .default:n=yellow,
+  color-achieved .initial:n=yellow,
+  color-unachieved .tl_set:N=\g_nyanyan_rating_default_color_unachieved_tl,
+  color-unachieved .default:n=gray,
+  color-unachieved .initial:n=gray,
+}
+\ProcessKeysOptions{nyanyan/rating}
+
+
+%- Graphics -%
+
+%-- Tikz Libraries --%
+\ExplSyntaxOff
+\usetikzlibrary{shapes.geometric, calc}
+\ExplSyntaxOn
+
+%-- Tikz Styles --%
+%--- Style ---%
+\ExplSyntaxOff
+\tikzset{
+  fill-fraction/.style n args={2}{
+    path picture={
+      \fill[#1] (path picture bounding box.south west) rectangle
+      ($(path picture bounding box.north west)!#2!(path picture bounding box.north east)$);
+    }
+  },
+  star-rating/.style={
+    anchor=outer point 3,
+    draw,
+    inner sep=.15em,
+    star,
+    star points=5,
+    star point ratio=2.25
+  },
+}
+\ExplSyntaxOn
+
+
+%-- Commands --%
+
+%--- Syntax: \stars{float}[int] (Achieved, Optional max points) ---%
+\DeclareDocumentCommand{\stars}{m o}
+{
+% Achieved
+  \fp_set:Nn \l_tmpa_fp {#1}
+
+  % Max points - Optional
+  \tl_if_novalue:nTF {#2}
+  {
+  % No value present -> default max points
+    \int_set:Nn \l_tmpa_int {\g_nyanyan_rating_default_max_points_int}
+  }
+  {
+    \int_set:Nn \l_tmpa_int {#2}
+  }
+
+  % Check boundaries (achieved <= max points)
+  \fp_compare:nNnTF {\l_tmpa_fp} {>} {\l_tmpa_int}
+  {
+  % Achieved points=First argument
+    \fp_set:Nn \l_tmpa_fp {\int_use:N \l_tmpa_int}
+  }
+  {
+  % Achieved points=max points
+    \fp_set:Nn \l_tmpb_fp {\int_use:N \g_nyanyan_rating_default_max_points_int}
+  }
+
+  \begin{tikzpicture}[baseline]
+  % Draw stars start=1, step=1, end=max points
+  \int_step_inline:nnnn {1} {1} {\l_tmpa_int}
+  {
+  % Determine color of the star (achieved <= pax points)
+    \int_compare:nNnTF {##1} {<} {\fp_to_int:N \l_tmpa_fp + 1}
+    {
+    % Achieved color
+      \tl_set:Nn \l_tmpa_tl {\g_nyanyan_rating_default_color_achieved_tl}
+    }
+    {
+    % Unachieved color
+      \tl_set:Nn \l_tmpa_tl {\g_nyanyan_rating_default_color_unachieved_tl}
+    }
+
+    % Last star can be a fraction filled star
+    \int_compare:nNnTF {##1} {=} {\fp_to_int:N \l_tmpa_fp}
+    {
+
+      \fp_compare:nNnTF {\l_tmpa_fp} {>} {\fp_eval:n {floor(\l_tmpa_fp)}}
+      {
+      % Draw floating point star
+        \int_set:Nn \l_tmpa_int {\fp_to_int:N \l_tmpa_fp}
+        % Difference
+        \tl_set:Nn \l_tmpa_tl {\fp_eval:n {\l_tmpa_fp - floor(\l_tmpa_fp)}}
+
+        \node[
+          star-rating,
+          fill-fraction={\g_nyanyan_rating_default_color_achieved_tl}{\l_tmpa_tl},
+        ] (star-\int_use:N \l_tmpa_int) at (##1 * 1em, 0) {};
+      }
+      {
+      % Draw normal star
+        \node[star-rating, fill=\l_tmpa_tl] (star-##1) at (##1 * 1em, 0) {};
+      }
+    }
+    {
+      \node[star-rating, fill=\l_tmpa_tl] (star-##1) at (##1 * 1em, 0) {};
+    }
+  }
+  \end{tikzpicture}
+}
