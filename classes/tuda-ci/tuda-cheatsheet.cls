@@ -26,32 +26,25 @@
 %%--Preconfiguration--%%
 \keys_define:nn {ptxcd/cheatsheet} {
 	color .code:n = {\PassOptionsToClass{color=#1}{tudaexercise}},
-	color .default:n=3b,
 	color .initial:n=3b,
 	columnsep .code:n={\setlength{\columnsep}{#1}},
 	columnseprule .code:n={\setlength{\columnseprule}{#1}},
-	language .code:n = {\PassOptionsToClass{main=#1}{babel}},
-	language .default:n={\PassOptionsToClass{main=ngerman}{babel}},
+	language .code:n={\PassOptionsToPackage{#1}{babel}},
+	language .initial:n={english, main=ngerman},
 }
 
 \ProcessKeysOptions{ptxcd/cheatsheet}
 
 \LoadClass[
-	%color=3b,
 	colorback=false,
-	ngerman,
 ]{tudaexercise}
 
-% Document color
+%%--Document color--%%
 \newcommand{\documentcolor}{\g_ptxcd_color_accent_tl}
-
 
 %%------------%%
 %%--Packages--%%
 %%------------%%
-
-%%--Box--%%
-\RequirePackage{tcolorbox}
 
 %%--Color--%%
 \RequirePackage{xcolor}
@@ -67,7 +60,7 @@
 \RequirePackage{standalone}
 
 %%--Language--%%
-\RequirePackage[english]{babel}
+\RequirePackage{babel}
 % Quotes
 \RequirePackage[babel]{csquotes}
 
@@ -92,30 +85,18 @@
 % Combine rows
 \RequirePackage{multirow}
 
-
 %%----------------%%
 %%--Front matter--%%
 %%----------------%%
 
-%--Author--%
-\providecaptionname{ngerman, german}{\autorname}{
-	\int_compare:nNnTF {\seq_count:N \l__ptxcd_author_seq} > {1}
-	{Autoren}
-	{Autor}
-}
-\providecaptionname{english, american, british}{\autorname}{
-	\int_compare:nNnTF {\seq_count:N \l__ptxcd_author_seq} > {1}
-	{Author}
-	{Authors}
-}
-
+%%--Author--%%
 % Author sep for last author
 \providecaptionname{ngerman, german}{\authorsep}{und}
 \providecaptionname{english, american, british}{\authorsep}{and}
 
-% Author from for headline
-\providecaptionname{ngerman, german}{\authorsof}{von}
-\providecaptionname{english, american, british}{\authorsof}{of}
+% Author by for headline
+\providecaptionname{ngerman, german}{\authorsby}{von}
+\providecaptionname{english, american, british}{\authorsby}{of}
 
 \seq_new:N \l__ptxcd_author_seq
 
@@ -147,28 +128,27 @@
 	\author{\tl_use:N \c__ptxcd_namesr_tl}
 }
 
-%--Version--%
+%%--Version--%%
 \tl_new:N \l__ptxcd_version_tl
 \newcommand{\version}[1]{\tl_gset:Nx \l__ptxcd_version_tl {#1}}
 \providecaptionname{ngerman, german}{\versionname}{Version}
 \providecaptionname{english, american, british}{\versionname}{Version}
 
-%--Semester--%
+%%--Semester--%%
 \tl_new:N \l__ptxcd_semester_tl
 \newcommand{\semester}[1]{\tl_gset:Nx \l__ptxcd_semester_tl {#1}}
-\providecaptionname{ngerman, german}{\semestername}{Semester}
-\providecaptionname{english, american, british}{\semestername}{Semester}
 
-%--HeadLine--%
+%%--HeadLine--%%
 \ConfigureHeadline{
 	headline={
 		\usekomafont{author}
-		\@title\space
+		\@title
 		\tl_if_empty:NF \l__ptxcd_semester_tl
 		{
-			\tl_use:N \l__ptxcd_semester_tl\space
+			\space\tl_use:N \l__ptxcd_semester_tl
 		}
-		\authorsof\space\@author
+		\xdef\@author {\@author}
+		\ifx\@author\@empty\else\space\authorsby\space\@author\fi
 		\tl_if_empty:NF \l__ptxcd_version_tl
 		{
 			\hfill
