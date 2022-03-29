@@ -5,6 +5,7 @@
 ## Options
 
 - `color`: The tuda color of the document (Default color = `3b`).
+- `columns`: The number of columns to use (Default columns = `2`).
 - `columnsep`: The distance between columns Specifies of the `multicols` environment.
 - `columnseprule`: The thickness of separator line of the `multicols` environment (Default
   environment visible).
@@ -12,6 +13,7 @@
 
 Examples:
 - `color=1b`: The document is in `1b` (blue) color.
+- `columns=3`: The document has 3 columns.
 - `columnsep=1.5cm=`: The distance between columns is 1.5cm.
 - `columnseprule=.2pt`: The thickness of separator line is 0.2pt.
 - `language={main=english}`: The document is in English (Default language = ngerman).
@@ -25,6 +27,7 @@ Examples:
 
 \documentclass[
 	color=1b,
+	columns=3,
 	columnsep=1.5cm,
 	columnseprule=.2pt,
 	languages={english}
@@ -51,10 +54,8 @@ Examples:
 %%------------%%
 
 \begin{document}
-	\begin{multicols}{2}
-		\blindtext
-		\columnbreak
-		\blindtext
-	\end{multicols}
+    \blindtext
+    \columnbreak
+    \blindtext
 \end{document}
 ```

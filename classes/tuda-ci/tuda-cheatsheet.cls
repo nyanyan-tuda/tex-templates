@@ -27,6 +27,8 @@
 \keys_define:nn {ptxcd/cheatsheet} {
 	color .code:n = {\PassOptionsToClass{color=#1}{tudaexercise}},
 	color .initial:n=3b,
+	columns .int_set:N=\g_ptxcd_cheatsheet_columns_int,
+	columns .initial:n=2,
 	columnsep .code:n={\setlength{\columnsep}{#1}},
 	columnseprule .code:n={\setlength{\columnseprule}{#1}},
 	language .code:n={\PassOptionsToPackage{#1}{babel}},
@@ -41,6 +43,7 @@
 
 %%--Document color--%%
 \newcommand{\documentcolor}{\g_ptxcd_color_accent_tl}
+
 
 %%------------%%
 %%--Packages--%%
@@ -84,6 +87,25 @@
 \RequirePackage{colortbl}
 % Combine rows
 \RequirePackage{multirow}
+
+
+%%----------------%%
+%%--Environments--%%
+%%----------------%%
+\let\olddocument\document
+\let\oldenddocument\enddocument
+
+%%--Document--%%
+% Multi-column document
+\RenewDocumentEnvironment{document}{}
+{
+	\olddocument
+	\begin{multicols*}{\int_use:N \g_ptxcd_cheatsheet_columns_int}
+		}
+		{
+	\end{multicols*}
+	\oldenddocument
+}
 
 %%----------------%%
 %%--Front matter--%%
@@ -129,30 +151,30 @@
 }
 
 %%--Version--%%
-\tl_new:N \l__ptxcd_version_tl
-\newcommand{\version}[1]{\tl_gset:Nx \l__ptxcd_version_tl {#1}}
+\tl_new:N \g_ptxcd_version_tl
+\newcommand{\version}[1]{\tl_gset:Nx \g_ptxcd_version_tl {#1}}
 \providecaptionname{ngerman, german}{\versionname}{Version}
 \providecaptionname{english, american, british}{\versionname}{Version}
 
 %%--Semester--%%
-\tl_new:N \l__ptxcd_semester_tl
-\newcommand{\semester}[1]{\tl_gset:Nx \l__ptxcd_semester_tl {#1}}
+\tl_new:N \g_ptxcd_semester_tl
+\newcommand{\semester}[1]{\tl_gset:Nx \g_ptxcd_semester_tl {#1}}
 
 %%--HeadLine--%%
 \ConfigureHeadline{
 	headline={
 		\usekomafont{author}
 		\@title
-		\tl_if_empty:NF \l__ptxcd_semester_tl
+		\tl_if_empty:NF \g_ptxcd_semester_tl
 		{
-			\space\tl_use:N \l__ptxcd_semester_tl
+			\space\tl_use:N \g_ptxcd_semester_tl
 		}
 		\xdef\@author {\@author}
 		\ifx\@author\@empty\else\space\authorsby\space\@author\fi
-		\tl_if_empty:NF \l__ptxcd_version_tl
+		\tl_if_empty:NF \g_ptxcd_version_tl
 		{
 			\hfill
-			\textbf{\versionname :}\space\tl_use:N \l__ptxcd_version_tl
+			\textbf{\versionname :}\space\tl_use:N \g_ptxcd_version_tl
 		}
 	}
 }
