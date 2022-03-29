@@ -39,13 +39,10 @@
 \keys_define:nn {nyanyan/rating}
 {
 	max-points .int_set:N=\g_nyanyan_rating_default_max_points_int,
-	max-points .default:n=5,
 	max-points .initial:n=5,
 	color-achieved .tl_set:N=\g_nyanyan_rating_default_color_achieved_tl,
-	color-achieved .default:n=yellow,
 	color-achieved .initial:n=yellow,
 	color-unachieved .tl_set:N=\g_nyanyan_rating_default_color_unachieved_tl,
-	color-unachieved .default:n=gray,
 	color-unachieved .initial:n=gray,
 }
 \ProcessKeysOptions{nyanyan/rating}
