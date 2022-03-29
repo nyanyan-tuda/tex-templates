@@ -17,5 +17,40 @@
   `max-points`).
 
   Examples:
-  - `\stars{2.5}[5}`: Achieved 2.5 points out of 5.
+  - `\stars{2.5}[5]`: Achieved 2.5 points out of 5.
   - `\stars{2.5}`: Achieved 2.5 points out of `max-points`.
+
+## Example
+```tex
+%%------------%%
+%%--Preamble--%%
+%%------------%%
+
+\documentclass[11pt]{article}
+
+
+%%------------%%
+%%--Packages--%%
+%%------------%%
+
+\usepackage[
+    max-points=3,
+    color-achieved=blue,
+    color-unachieved=red,
+]{star-rating}
+
+\usepackage{blindtext}
+
+
+%%------------%%
+%%--Document--%%
+%%------------%%
+
+\begin{document}
+	\section*{Task 1 \hfill \stars{2.5}}
+	\blindtext
+
+	\section*{Task 1 \hfill \stars{2.5}[5]}
+	\blindtext
+\end{document}
+```
