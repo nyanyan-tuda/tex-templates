@@ -2,7 +2,6 @@
 %! Author = Nyanyan
 %! Date = 2022/03/29
 
-
 %%---------------------------%%
 %%--Document class settings--%%
 %%---------------------------%%
@@ -43,7 +42,6 @@
 
 %%--Document color--%%
 \newcommand{\documentcolor}{\g_ptxcd_color_accent_tl}
-
 
 %%------------%%
 %%--Packages--%%
@@ -87,7 +85,6 @@
 \RequirePackage{colortbl}
 % Combine rows
 \RequirePackage{multirow}
-
 
 %%----------------%%
 %%--Environments--%%
@@ -170,7 +167,11 @@
 			\space\tl_use:N \g_ptxcd_semester_tl
 		}
 		\xdef\@author {\@author}
-		\ifx\@author\@empty\else\space\authorsby\space\@author\fi
+		\ifx
+			\@author\@empty
+		\else
+			\space\authorsby\space\@author
+		\fi
 		\tl_if_empty:NF \g_ptxcd_version_tl
 		{
 			\hfill
