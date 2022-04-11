@@ -7,8 +7,8 @@
 %%---------------------------%%
 
 %%--Version--%%
-\def\fileversion{1.00}
-\def\filedate{2022/03/29}
+\DeclareDocumentCommand{\fileversion}{}{1.0.0}
+\DeclareDocumentCommand{\filedate}{}{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
 \NeedsTeXFormat{LaTeX2e}
@@ -89,6 +89,7 @@
 %%----------------%%
 %%--Environments--%%
 %%----------------%%
+
 \let\olddocument\document
 \let\oldenddocument\enddocument
 
