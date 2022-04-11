@@ -1,0 +1,111 @@
+%! Package = PACKAGE_NAME
+%! Author = nyanyan
+%! Date = 2022/04/11
+
+%%--------------------%%
+%%--Package settings--%%
+%%--------------------%%
+
+%%--Version--%%
+\DeclareDocumentCommand{\fileversion}{}{1.0.0}
+\DeclareDocumentCommand{\filedate}{}{2022/04/11}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesExplPackage{notepad}
+{\filedate}
+{\fileversion}
+{Creation of notepads}
+
+%%------------%%
+%%--Packages--%%
+%%------------%%
+
+%%--Box--%%
+\RequirePackage{tcolorbox}
+
+%%--Color--%%
+\RequirePackage{xcolor}
+
+%%--Key-Value-Option--%%
+\RequirePackage{l3keys2e}
+
+%%----------%%
+%%--Colors--%%
+%%----------%%
+
+\definecolor{note-gray}{cmyk/RGB/HTML}{0,0,0,.6/137,137,137/898989}
+\definecolor{note-dgreen}{cmyk/RGB/HTML}{1,0,.6,0/0,157,129/009D81}
+\definecolor{note-blue}{cmyk/RGB/HTML}{1,.5,.2,0/0,104,157/00689D}
+\definecolor{note-lgreen}{cmyk/RGB/HTML}{.6,.1,1,0/127,171,22/7FAB16}
+\definecolor{note-orange}{cmyk/RGB/HTML}{0,.7,1,0/236,101,0/EC6500}
+\definecolor{note-red}{cmyk/RGB/HTML}{0,1,.9,0/230,0,26/E6001A}
+
+%%-------------------%%
+%%--Package Options--%%
+%%-------------------%%
+
+%%-Key-Value Option--%
+\keys_define:nn {nyanyan/notepad}
+{
+	color .tl_set:N=\g_nyanyan_notepad_default_color_tl,
+	color .initial:n=note-gray,
+}
+\ProcessKeysOptions{nyanyan/notepad}
+
+%%---------------%%
+%%--Environment--%%
+%%---------------%%
+
+%%--TCB Libraries--%%
+% Custom skin
+\tcbuselibrary{skins}
+
+%%--Expansion--%
+\cs_generate_variant:Nn \prop_item:Nn { Ne }
+
+%%--Key-Value Option--%
+\keys_define:nn {nyanyan/note}{
+	title .tl_set:N=\l__nyanyan_note_title_tl,
+	title .initial:n=,
+	color .tl_set:N=\l__nyanyan_note_color_tl,
+	color .initial:n=\g_nyanyan_notepad_default_color_tl,
+}
+
+%%---------------%%
+%%--Environment--%%
+%%---------------%%
+
+% Syntax: \begin{note}[title=str,color=str] ... \end{note} (Title, Color)
+\DeclareDocumentEnvironment{note}{+o}
+{
+
+	% Process options
+	\IfNoValueF{#1}{
+		\keys_set:nn {nyanyan/note}{#1}
+	}
+
+	% Note box
+	\begin{tcolorbox}[
+			arc=3pt, % Rounded borders
+			boxrule=0pt, % No border
+			colback=\l__nyanyan_note_color_tl!5, % Background color  (transparency)
+			enhanced, % Enable customization
+			frame~hidden, % Hide frame
+			left=5pt, % Remove left margin
+			overlay={
+				\begin{tcbclipinterior}
+					\fill[\l__nyanyan_note_color_tl] (frame.south~west)
+					rectangle ([xshift=4pt]frame.north~west);
+				\end{tcbclipinterior}
+			}, % Overlay colored left border (no transparency)
+		]
+
+		% Show title if it if not empty
+		\tl_if_empty:NF \l__nyanyan_note_title_tl {
+			\textbf{\l__nyanyan_note_title_tl :}
+			\par\medskip
+		}
+		}
+		{
+	\end{tcolorbox}
+}
