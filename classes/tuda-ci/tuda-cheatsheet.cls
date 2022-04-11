@@ -121,7 +121,7 @@
 \seq_new:N \l__ptxcd_author_seq
 
 % Push students to a sequence
-\newcommand{\authors}[1]{
+\DeclareDocumentCommand{\authors}{m}{
 	% Push author name to the right
 	\seq_put_right:Nn \l__ptxcd_author_seq {#1}
 
@@ -150,13 +150,13 @@
 
 %%--Version--%%
 \tl_new:N \g_ptxcd_version_tl
-\newcommand{\version}[1]{\tl_gset:Nx \g_ptxcd_version_tl {#1}}
+\DeclareDocumentCommand{\version}{m}{\tl_gset:Nx \g_ptxcd_version_tl {#1}}
 \providecaptionname{ngerman, german}{\versionname}{Version}
 \providecaptionname{english, american, british}{\versionname}{Version}
 
 %%--Semester--%%
 \tl_new:N \g_ptxcd_semester_tl
-\newcommand{\semester}[1]{\tl_gset:Nx \g_ptxcd_semester_tl {#1}}
+\DeclareDocumentCommand{\semester}{m}{\tl_gset:Nx \g_ptxcd_semester_tl {#1}}
 
 %%--HeadLine--%%
 \ConfigureHeadline{
