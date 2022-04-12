@@ -7,8 +7,8 @@
 %%---------------------------%%
 
 %%--Version--%%
-\DeclareDocumentCommand{\fileversion}{}{2.0.0}
-\DeclareDocumentCommand{\filedate}{}{2022/03/29}
+\def\fileversion{2.0.0}
+\def\filedate{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
 \NeedsTeXFormat{LaTeX2e}
@@ -20,7 +20,7 @@
 \ProvidesExplClass{nyanyan-tudacheatsheet}
 {\filedate}
 {\fileversion}
-{Nyanyan (TUDa-CI) - Cheatsheet}
+{Nyanyan (TUDa-CI) - Cheatsheet Template}
 
 %%--Preconfiguration--%%
 \keys_define:nn {ptxcd/cheatsheet} {
@@ -41,7 +41,7 @@
 ]{tudaexercise}
 
 %%--Document color--%%
-\newcommand{\documentcolor}{\g_ptxcd_color_accent_tl}
+\DeclareDocumentCommand{\documentcolor}{}{\g_ptxcd_color_accent_tl}
 
 %%------------%%
 %%--Packages--%%
@@ -70,10 +70,6 @@
 
 %%--Math--%%
 \RequirePackage{amsmath, amssymb}
-% Lightning symbol
-\RequirePackage{stmaryrd}
-% Bold
-\RequirePackage{bm}
 
 %%--Page--%%
 \RequirePackage{multicol}
