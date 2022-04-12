@@ -1,5 +1,5 @@
 %! Class = tuda-cheatsheet
-%! Author = Nyanyan
+%! Author = nyanyan
 %! Date = 2022/03/29
 
 %%---------------------------%%
