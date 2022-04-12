@@ -1,10 +1,13 @@
 # Package tuda-ci extension
 
+## Requirements
+- Package [tuda-ci](https://ctan.org/pkg/tuda-ci)
+- Logo [tuda logo](https://www.intern.tu-darmstadt.de/arbeitsmittel/corporate_design_vorlagen/index.de.jsp)
+
 ## nyanyan-tudacheatsheet
 - A cheatsheet templates using `tudaexercise` as a basis.
 
 ### Options
-
 - `color`: The tuda color of the document (Default color = `3b`).
 - `columns`: The number of columns to use (Default columns = `2`).
 - `columnsep`: The distance between columns Specifies of the `multicols` environment.
@@ -20,7 +23,6 @@ Examples:
 - `languages={main=english}`: The document is in English.
 
 ### Example
-
 ```tex
 %%------------%%
 %%--Preamble--%%
@@ -65,7 +67,6 @@ Examples:
 - An exercise submission templates using `tudaexercise` as a basis.
 
 ### Options
-
 - `color`: The tuda color of the document (Default color = `3b`).
 - `languages`: The main language of the document (Default: `english, main=ngerman`).
 
@@ -83,7 +84,6 @@ Examples:
 - `\sheetnumber{number}`: Adds a sheet number. (Optional)
 
 ### Example
-
 ```tex
 %%------------%%
 %%--Preamble--%%
