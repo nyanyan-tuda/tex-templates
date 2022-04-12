@@ -7,7 +7,7 @@
 %%---------------------------%%
 
 %%--Version--%%
-\def\fileversion{1.0.0}
+\def\fileversion{1.0.1}
 \def\filedate{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
@@ -142,9 +142,43 @@
 	\seq_gput_right:Nn \g_nyanyan_tuda_submission_matriculation_numbers_seq {#1}
 }
 
-%%--Credit--%%
+%%--Task--%%
+% Task names
+\RenewDocumentCommand{\thetask}{}{\arabic{task}}
+\RenewDocumentCommand{\thesubtask}{}{\arabic{subtask}}
+\RenewDocumentCommand{\subtaskformat}{}{\taskname\space\thetask.\thesubtask\enskip}
+
 % Credit position
-\renewcommand*{\creditformat}[1]{\hfill #1}
+\RenewDocumentCommand{\creditformat}{m}{\hfill #1}
+
+% Seperator
+\renewcommand*\sectionlinesformat[4]{%
+	\parbox{\linewidth}{
+		\bool_if:cT {g__ptxcd_ruled_#1_bool} {
+			\rule[5\g_ptxcd_titlerule_dim]{\linewidth}{\g_ptxcd_titlerule_dim}\par\nointerlineskip
+		}
+		\@hangfrom{%
+			\hskip #2#3}{
+			\tl_if_eq:nnT {#1} {task} {
+				\exp_args:No \tl_if_empty:nF {#4}
+				{~} % Insert your task seperator here. Default ~: Whitespace
+				\bool_if:NT \l__ptxcd_points_auto_bool {
+					\exp_args:NNx \prop_get:NnN \g__ptxcd_loaded_points_prop {\thetask} \l_ptxcd_tmp_tl
+					\quark_if_no_value:NF \l_ptxcd_tmp_tl {
+						\fp_set:Nn \l_ptxcd_ex_task_points_fp {\l_ptxcd_tmp_tl}
+					}
+				}
+			}
+			#4
+			\tl_if_in:nnT {#1} {task} {
+				\tl_if_empty:cTF{l_ptxcd_ex_#1_credit_tl}
+				{\pointformat{\fp_to_decimal:c {l_ptxcd_ex_#1_points_fp}}}
+				{\creditformat{\tl_use:c {l_ptxcd_ex_#1_credit_tl}}}
+			}
+			\rule[-\dp\strutbox]{0pt}{\dp\strutbox}\par}\nointerlineskip
+		\skip_vertical:n {\ptxcd_titlerule_sep: -\dp\strutbox}
+		\bool_if:cT {g__ptxcd_ruled_#1_bool} {\smash{\rule{\linewidth}{\g_ptxcd_titlerule_dim}}}
+	}}
 
 %%--Exercise--%%
 % Exercise group leader
