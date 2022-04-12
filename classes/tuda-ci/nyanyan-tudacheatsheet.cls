@@ -7,7 +7,7 @@
 %%---------------------------%%
 
 %%--Version--%%
-\DeclareDocumentCommand{\fileversion}{}{1.0.0}
+\DeclareDocumentCommand{\fileversion}{}{2.0.0}
 \DeclareDocumentCommand{\filedate}{}{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
@@ -17,10 +17,10 @@
 \RequirePackage{l3keys2e}
 
 %%--Identification--%%
-\ProvidesExplClass{tuda-cheatsheet}
+\ProvidesExplClass{nyanyan-tudacheatsheet}
 {\filedate}
 {\fileversion}
-{(TUDa-CI) - Cheatsheet Template}
+{Nyanyan (TUDa-CI) - Cheatsheet}
 
 %%--Preconfiguration--%%
 \keys_define:nn {ptxcd/cheatsheet} {

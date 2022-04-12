@@ -1,8 +1,9 @@
-# Package star-rating
+# Package tuda-ci extension
 
+## nyanyan-tudacheatsheet
 - A cheatsheet templates using `tudaexercise` as a basis.
 
-## Options
+### Options
 
 - `color`: The tuda color of the document (Default color = `3b`).
 - `columns`: The number of columns to use (Default columns = `2`).
@@ -18,7 +19,7 @@ Examples:
 - `columnseprule=.2pt`: The thickness of separator line is 0.2pt.
 - `language={main=english}`: The document is in English (Default language = ngerman).
 
-## Example
+### Example
 
 ```tex
 %%------------%%
