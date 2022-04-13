@@ -7,7 +7,7 @@
 %%---------------------------%%
 
 %%--Version--%%
-\def\fileversion{1.0.1}
+\def\fileversion{1.0.2}
 \def\filedate{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
@@ -21,6 +21,10 @@
 {\filedate}
 {\fileversion}
 {Nyanyan (TUDa-CI) - Submission Template}
+
+%%--Color--%%
+% Needs to be loaded before class
+\RequirePackage[table]{xcolor}
 
 %%--Preconfiguration--%%
 \keys_define:nn {nyanyan/tuda/submission} {
@@ -44,9 +48,6 @@
 %%--Packages--%%
 %%------------%%
 
-%%--Color--%%
-\RequirePackage{xcolor}
-
 %%--Graphics--%%
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
@@ -67,6 +68,9 @@
 
 %%--Math--%%
 \RequirePackage{amsmath, amssymb}
+
+%%--Notes--%
+\RequirePackage[color=\g_ptxcd_color_accent_tl]{notepad}
 
 %%--Page--%%
 \RequirePackage{multicol}

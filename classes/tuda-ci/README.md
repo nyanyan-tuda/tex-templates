@@ -66,6 +66,9 @@ Examples:
 ## nyanyan-submission
 - An exercise submission templates using `tudaexercise` as a basis.
 
+## Requirements
+- Package [notepad](https://github.com/nyanyan-tuda/tex-templates/blob/main/classes/tuda-ci/notepad.cls)
+
 ### Options
 - `color`: The tuda color of the document (Default color = `3b`).
 - `languages`: The main language of the document (Default: `english, main=ngerman`).
