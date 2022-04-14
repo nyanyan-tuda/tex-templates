@@ -7,7 +7,7 @@
 %%---------------------------%%
 
 %%--Version--%%
-\def\fileversion{1.0.2}
+\def\fileversion{1.0.3}
 \def\filedate{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
@@ -47,6 +47,10 @@
 %%------------%%
 %%--Packages--%%
 %%------------%%
+
+%%--Caption--%%
+% Centering caption
+\RequirePackage[justification=centering]{caption}
 
 %%--Graphics--%%
 \RequirePackage{graphicx}

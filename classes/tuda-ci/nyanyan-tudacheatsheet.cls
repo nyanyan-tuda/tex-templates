@@ -7,7 +7,7 @@
 %%---------------------------%%
 
 %%--Version--%%
-\def\fileversion{2.0.0}
+\def\fileversion{2.0.1}
 \def\filedate{2022/03/29}
 
 % Sets the LaTeX version for the package to work.
@@ -46,6 +46,10 @@
 %%------------%%
 %%--Packages--%%
 %%------------%%
+
+%%--Caption--%%
+% Centering caption
+\RequirePackage[justification=centering]{caption}
 
 %%--Color--%%
 \RequirePackage{xcolor}
