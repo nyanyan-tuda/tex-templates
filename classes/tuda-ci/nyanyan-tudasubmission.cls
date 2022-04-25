@@ -78,6 +78,7 @@
 
 %%--Page--%%
 \RequirePackage{multicol}
+\RequirePackage{pdflscape}
 
 %%--Table--%%
 % Beautiful tables
